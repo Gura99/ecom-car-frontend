@@ -23,7 +23,8 @@ class ProductController extends GetxController {
 
   /// Select Image from Gallery
   Future<void> selectImage() async {
-    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       selectedImage.value = File(pickedFile.path);
     }
@@ -44,45 +45,47 @@ class ProductController extends GetxController {
           debugPrint('Unexpected response format');
         }
       } else {
-        debugPrint('Failed to fetch products. Status code: ${response.statusCode}');
+        debugPrint(
+            'Failed to fetch products. Status code: ${response.statusCode}');
       }
     } catch (e) {
       debugPrint('Error fetching products: $e');
     }
   }
+
   /// Add New Product
   Future<void> addProduct(Map<String, dynamic> product, File imageFile) async {
-  try {
-    dio.FormData formData = dio.FormData.fromMap({
-      'name': product['name'],
-      'description': product['description'],
-      'price': product['price'].toString(),
-      'image': await dio.MultipartFile.fromFile(
-        imageFile.path,
-        filename: imageFile.path.split('/').last,
-      ),
-    });
+    try {
+      dio.FormData formData = dio.FormData.fromMap({
+        'name': product['name'],
+        'description': product['description'],
+        'price': product['price'].toString(),
+        'image': await dio.MultipartFile.fromFile(
+          imageFile.path,
+          filename: imageFile.path.split('/').last,
+        ),
+      });
 
-    var response = await dioClient.post(
-      '${AppConfig.baseUrl}/product',
-      data: formData,
-      options: dio.Options(headers: {'Content-Type': 'multipart/form-data'}),
-    );
+      var response = await dioClient.post(
+        '${AppConfig.baseUrl}/product',
+        data: formData,
+        options: dio.Options(headers: {'Content-Type': 'multipart/form-data'}),
+      );
 
-    if (response.statusCode == 201) {
-      Get.snackbar('Success', 'Product added successfully');
-      await fetchDataproduct();
-    } else {
-      Get.snackbar('Error', 'Failed to add product');
+      if (response.statusCode == 201) {
+        Get.snackbar('Success', 'Product added successfully');
+        await fetchDataproduct();
+      } else {
+        Get.snackbar('Error', 'Failed to add product');
+      }
+    } catch (e) {
+      Get.snackbar('Error', 'Something went wrong: $e');
     }
-  } catch (e) { 
-    Get.snackbar('Error', 'Something went wrong: $e');
   }
-}
-
 
   /// Update Existing Product
-  Future<void> updateProduct(int productId, Map<String, dynamic> updatedProduct) async {
+  Future<void> updateProduct(
+      int productId, Map<String, dynamic> updatedProduct) async {
     try {
       var response = await dioClient.put(
         '${AppConfig.baseUrl}/product/$productId',
@@ -90,21 +93,25 @@ class ProductController extends GetxController {
       );
 
       if (response.statusCode == 200) {
-        Get.snackbar('Success', 'Product updated successfully', snackPosition: SnackPosition.TOP);
+        Get.snackbar('Success', 'Product updated successfully',
+            snackPosition: SnackPosition.BOTTOM);
         await fetchDataproduct();
         Get.back();
       } else {
-        Get.snackbar('Error', 'Failed to update product', snackPosition: SnackPosition.TOP);
+        Get.snackbar('Error', 'Failed to update product',
+            snackPosition: SnackPosition.TOP);
       }
     } catch (e) {
-      Get.snackbar('Error', 'Something went wrong: $e', snackPosition: SnackPosition.TOP);
+      Get.snackbar('Error', 'Something went wrong: $e',
+          snackPosition: SnackPosition.TOP);
     }
   }
 
   /// Delete Product
   Future<void> deleteProduct(int productId) async {
     try {
-      var response = await dioClient.delete('${AppConfig.baseUrl}/product/$productId');
+      var response =
+          await dioClient.delete('${AppConfig.baseUrl}/product/$productId');
 
       if (response.statusCode == 200) {
         debugPrint('Product deleted successfully');

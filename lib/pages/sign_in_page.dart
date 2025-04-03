@@ -13,8 +13,7 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
-  final AuthController authController =
-      Get.find<AuthController>(); // GetX instance
+  final AuthController authController = Get.find<AuthController>(); // GetX instance
   final _formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -27,7 +26,7 @@ class _SignInPageState extends State<SignInPage> {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/mountain.jpg'),
+                image: AssetImage('assets/images/bg.jpg'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -42,11 +41,7 @@ class _SignInPageState extends State<SignInPage> {
                     filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.2),
-                        border: Border.all(
-                          color: Colors.white.withOpacity(0.3),
-                          width: 1,
-                        ),
+                        border: Border.all(),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       padding: const EdgeInsets.all(20.0),
@@ -66,11 +61,20 @@ class _SignInPageState extends State<SignInPage> {
                               ),
                             ),
                             const SizedBox(height: 20),
+
+                            // Email Label
+                            const Text(
+                              "Email",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(height: 5),
                             TextFormField(
                               controller: emailController,
                               decoration: InputDecoration(
-                                prefixIcon: const Icon(Icons.email,
-                                    color: Colors.white),
                                 filled: true,
                                 fillColor: Colors.white.withOpacity(0.2),
                                 border: OutlineInputBorder(
@@ -89,12 +93,21 @@ class _SignInPageState extends State<SignInPage> {
                               },
                             ),
                             const SizedBox(height: 20),
+
+                            // Password Label
+                            const Text(
+                              "Password",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(height: 5),
                             TextFormField(
                               controller: passwordController,
                               obscureText: true,
                               decoration: InputDecoration(
-                                prefixIcon:
-                                    const Icon(Icons.lock, color: Colors.white),
                                 filled: true,
                                 fillColor: Colors.white.withOpacity(0.2),
                                 border: OutlineInputBorder(
@@ -113,6 +126,7 @@ class _SignInPageState extends State<SignInPage> {
                               },
                             ),
                             const SizedBox(height: 20),
+
                             Center(
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
@@ -131,11 +145,9 @@ class _SignInPageState extends State<SignInPage> {
                                     );
 
                                     if (success) {
-                                      Get.offAll(() =>
-                                          HomePage()); // Navigate to homepage
+                                      Get.offAll(() => HomePage()); // Navigate to homepage
                                     } else {
-                                      Get.snackbar(
-                                          "Error", "Invalid email or password");
+                                      Get.snackbar("Error", "Invalid email or password");
                                     }
                                   }
                                 },
@@ -149,21 +161,17 @@ class _SignInPageState extends State<SignInPage> {
                               ),
                             ),
                             const SizedBox(height: 20),
+
                             Center(
                               child: TextButton(
                                 onPressed: () {
-                                  Get.to(() => SignInPage());
+                                  Get.to(() => SignUpPage());
                                 },
-                                child: GestureDetector(
-                                  onTap: () {
-                                    // Navigate to the SignUp page
-                                    Get.to(() => SignUpPage());
-                                  },
-                                  child: const Text(
-                                    "Don't have an account? Sign Up",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        decoration: TextDecoration.underline),
+                                child: const Text(
+                                  "Don't have an account? Sign Up",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    decoration: TextDecoration.underline,
                                   ),
                                 ),
                               ),

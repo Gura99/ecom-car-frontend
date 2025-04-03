@@ -22,7 +22,7 @@ class SignUpPage extends StatelessWidget {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/mountain.jpg'), // Adjust path
+                image: AssetImage('assets/images/bg.jpg'), // Adjust path
                 fit: BoxFit.cover,
               ),
             ),
@@ -37,10 +37,10 @@ class SignUpPage extends StatelessWidget {
                     filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.2),
+                   
                         border: Border.all(
-                          color: Colors.white.withOpacity(0.3),
-                          width: 1,
+                           
+                      
                         ),
                         borderRadius: BorderRadius.circular(20),
                       ),
@@ -62,16 +62,16 @@ class SignUpPage extends StatelessWidget {
                             ),
                             const SizedBox(height: 20),
                             _buildTextField(
-                                "Full Name", Icons.person, nameController),
+                                "Full Name" , nameController),
                             const SizedBox(height: 20),
                             _buildTextField(
-                                "Email", Icons.email, emailController),
+                                "Email",   emailController),
                             const SizedBox(height: 20),
                             _buildTextField(
-                                "Password", Icons.lock, passwordController,
+                                "Password",   passwordController,
                                 isObscure: true),
                             const SizedBox(height: 20),
-                            _buildTextField("Confirm Password", Icons.lock,
+                            _buildTextField("Confirm Password",  
                                 confirmPasswordController,
                                 isObscure: true),
                             const SizedBox(height: 20),
@@ -152,7 +152,7 @@ class SignUpPage extends StatelessWidget {
   }
 
   Widget _buildTextField(
-      String label, IconData icon, TextEditingController controller,
+      String label , TextEditingController controller,
       {bool isObscure = false}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -169,7 +169,7 @@ class SignUpPage extends StatelessWidget {
           validator: (value) =>
               value == null || value.isEmpty ? "$label cannot be empty" : null,
           decoration: InputDecoration(
-            prefixIcon: Icon(icon, color: Colors.white),
+            
             filled: true,
             fillColor: Colors.white.withOpacity(0.2),
             border: OutlineInputBorder(

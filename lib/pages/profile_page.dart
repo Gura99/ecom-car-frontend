@@ -14,7 +14,7 @@ class ProfilePage extends StatelessWidget {
           children: [
             Obx(() => Text(
                   authController.userName.value.isNotEmpty
-                      ? authController.userName.value // ✅ Display saved name
+                      ? authController.userName.value  
                       : 'Guest User',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 )),

@@ -35,18 +35,18 @@ class _HomePageState extends State<HomePage> {
             ? 'Welcome'
             : (_selectedIndex == 1 ? 'Our product' : 'Your Profile')),
       ),
-      body: _pages[_selectedIndex], // Switch pages dynamically
-      floatingActionButton:
-          _selectedIndex == 1 // Show FAB only on the Products page
-              ? FloatingActionButton(
-                  onPressed: () {
-                    Get.to(() => AddProductPage());
-                  },
-                  child: Icon(Icons.add),
-                  tooltip: 'Add Product',
-                  mini: true,
-                )
-              : null,
+      body: _pages[_selectedIndex],
+      floatingActionButton: (_selectedIndex == 0 ||
+              _selectedIndex == 1) // Show FAB only on the Products page
+          ? FloatingActionButton(
+              onPressed: () {
+                Get.to(() => AddProductPage());
+              },
+              child: Icon(Icons.add),
+              tooltip: 'Add Product',
+              mini: true,
+            )
+          : null,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: (index) {

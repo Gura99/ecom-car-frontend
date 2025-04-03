@@ -36,35 +36,34 @@ class AuthController extends GetxController {
   }
 
   Future<bool> login(String email, String password) async {
-  try {
-    final response = await dio.post(
-      '${AppConfig.baseUrl}/login',
-      data: {
-        "email": email,
-        "password": password,
-      },
-    );
+    try {
+      final response = await dio.post(
+        '${AppConfig.baseUrl}/login',
+        data: {
+          "email": email,
+          "password": password,
+        },
+      );
 
-    if (response.statusCode == 200) {
-      final token = response.data['token'];
-      final userName = response.data['user']['name']; // ✅ Get user name from API
+      if (response.statusCode == 200) {
+        final token = response.data['token'];
+        final userName =
+            response.data['user']['name']; // ✅ Get user name from API
 
-      final TokenService tokenService = Get.find<TokenService>();
-      await tokenService.saveToken(token); // ✅ Save token
+        final TokenService tokenService = Get.find<TokenService>();
+        await tokenService.saveToken(token); // ✅ Save token
 
-      final AuthController authController = Get.find<AuthController>();
-      authController.setUserName(userName); // ✅ Save username
+        final AuthController authController = Get.find<AuthController>();
+        authController.setUserName(userName); // ✅ Save username
 
-      Get.offAllNamed('/home');
-      return true;
+        Get.offAllNamed('/home');
+        return true;
+      }
+      return false;
+    } catch (e) {
+      return false;
     }
-    return false;
-  } catch (e) {
-    
-    return false;
   }
-}
-
 
   // Future<bool> logout() async {
   //   try {

@@ -63,6 +63,7 @@ class EditProductPage extends StatelessWidget {
     };
 
     // Call the updateProduct function in the controller
+
     productController.updateProduct(productId, updatedProduct);
   }
 }
